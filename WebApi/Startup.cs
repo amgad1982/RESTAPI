@@ -15,7 +15,7 @@ using WebApi.Configurations;
 using System.Reflection;
 using System.IO;
 using Infrastructure.Extensions;
-
+using MediatR;
 namespace WebApi
 {
     public class Startup
@@ -31,6 +31,7 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMediatR(typeof(Startup).Assembly);
             services.RegisterIServiceServicesFromAssembly(Configuration, typeof(Startup).Assembly);
         }
 
@@ -54,6 +55,7 @@ namespace WebApi
 
 
             #endregion
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
