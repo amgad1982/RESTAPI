@@ -9,14 +9,18 @@ using WebApi.Features.Test;
 namespace WebApi.Features.Test
 {
     [Route("api/test")]
-    public class TestController:FeatureController
+    public class TestController:ControllerBase
     {
-        public TestController(IMediator mediator) : base(mediator) { }
+        private readonly IMediator _mediator;
+
+        public TestController(IMediator mediator){
+            this._mediator = mediator;
+        }
         
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var response = await this.mediator.Send(new Index.Query());
+            var response = await _mediator.Send(new Index.Query());
             return Ok(response);
         }
     }
